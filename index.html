@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
+  <!-- reset -->
+  <link rel="stylesheet" href="./css/reset.css">
+  <!-- font-awesome 5.15.4 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- 메타 부분 아직 생성하지 않음 -->
+  <title>파리바게뜨</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    /* 전체 스타일 부분 */
+    .clearfix::after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    :root{
+      font-family: 'Poppins', 'Noto-Sans-KR', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #111;
+    }
+    .fa,.fab,.fad,.fal,.far,.fas{
+      font-weight: 900 !important;
+    }
+
+    /* 스킵 메뉴 스타일 부분 */
+    .skip-menu a{
+      position: absolute;
+      left: 50%;
+      top: -50%;
+      z-index: 100;
+      transform: translate(-50%, -50%);
+      padding: 10px 20px;
+      background-color: #eee;
+      font-weight: 700;
+      font-size: 32px;
+      color: #023586;
+      border: 2px solid #023586;
+      border-radius: 10px;
+    }
+    .skip-menu a:focus{
+      top: 50%;
+    }
+
+    /* 공통 부분 */
+    .wrap{
+      position: relative;
+      width: auto;
+      overflow: hidden;
+    }  
+    .container{
+      padding: 80px 25px;
+    }
+    .sec-top{
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .sec-tit>h2{
+      font-weight: 700;
+      font-size: 24px;
+    }
+    .sec-more>span{
+      font-weight: 500;
+      border-bottom: 3px solid black;
+      
+    }
+
+    /* 헤더 부분 */
+    .header{
+      position: relative;
+      height: 90px;
+    }
+    .header>.container{
+      height: 100%;
+      background-color: #023586;
+      padding: 0 16px;
+    }
+    .inner{
+      height: 100%;
+    }
+    .nav{
+      height: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+
+      color: #eee;
+    }
+    .quick-menu{
+      display: none;
+    }
+    .l-nav, .r-nav{
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+
+      font-weight: 600;
+      font-size: 16px;
+
+      height: inherit;
+      align-items: center;
+      
+    }
+    .l-nav>li, .r-nav>li{
+      margin-right: 20px;
+      height: inherit;
+      line-height: 90px;
+      cursor: pointer;
+    }
+    .l-nav>li:hover, .r-nav>li:hover{
+      border-bottom: 2px solid #fff;
+    }
+ 
+ 
+    .c-nav{
+      font-size: 28px;
+    }
+    .quick-btn{
+      font-size: 1.3em;
+      cursor: pointer;
+    }
+    
+
+    .sub-nav{
+      position: absolute;
+      top: 0;
+      left: -100%;
+      bottom: 0;
+      z-index: 10;
+      color: #4f4f4f;
+      width: 280px;
+      background-color: #fff;
+      transition: 0.5s;
+      transition-timing-function:ease-out;
+    }
+    .btn-close-nav{
+      height: 60px;
+      cursor: pointer;
+      line-height: 60px;
+      font-size: 32px;
+      padding: 0 16px;
+    }
+    .btn-sns-ico{
+      display: flex;
+      font-size: 32px;
+      
+    }
+    .btn-sns-ico>i{
+      height: 50px;
+      width: 50px;
+
+      
+      border: 1px solid #023586;
+      border-radius: 25px;
+      margin-right: 15px;
+      text-align: center;
+      line-height: 50px;
+    }
+
+    .quick-search{
+      position: absolute;
+      top: -100%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 10;
+      transition-duration: 0.5s;
+    }
+    .quick-search>input{
+      height: 100%;
+      width: 100%;
+      border: none;
+      padding-left: 3%;
+      font-size: 18px;
+    }
+    .quick-search>input::placeholder{
+      color: #ccc;
+    }
+    .btn-close-search{
+      position: absolute;
+      top: 50%;
+      right: 0;
+      z-index: 11;
+
+      transform: translateY(-50%);
+      cursor: pointer;
+      line-height: 60px;
+      font-size: 32px;
+      padding: 0 16px;
+    }
+    
+
+    
+
+    /* 메인 프로모션 부분 */
+    .wrap>.main-promo{
+      width: 100%;
+      padding-top: 0;
+      padding-bottom: 80px;
+    }
+    .mp-container{
+      padding: 0;
+    }
+    .mp-container>.inner>.sec-tit{
+      display: none;
+    }
+    .btn-move{
+      display: none;
+    }
+    .mp-slider{
+      display: flex;
+    }
+    .mp-slide img{
+      filter: brightness(70%);
+    }
+    .mp-slide img:hover{
+      filter: none;
+    }
+
+
+    /* 매거진 부분 */
+    /*.magazine{
+     display: none;
+      
+    }*/
+    .mz-contents{
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+    }
+    .mz-contents a{
+      padding: 12px;
+    }
+    .mz-contents a:first-child{
+      padding-left: 0;
+    }
+    .mz-contents a:last-child{
+      padding-right: 0;
+    }
+    
+
+    /* 이야기 부분 */
+    /*.story{
+     display: none;
+    }*/
+
+    .promotion{
+      display: none;
+    }
+
+    .products{
+      display: none;
+    }
+
+    .sns-ad{
+      display: none;
+    }
+
+    .board{
+      display: none;
+    }
+
+    .footer{
+      display: none;
+    }
+
+    .all-page{
+      z-index: -1;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+
+      background-color: rgb(0, 0, 0);
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+
+    @media (max-width: 990px) {
+      .header{
+        height: 60px;
+      }
+      .quick-menu{
+        display: inline-block;
+      }
+      .l-nav, .r-sub-nav{
+        display: none;
+      }
+      
+      .c-nav{
+        font-size: 18px;
+      }
+    }
+    @media (max-width: 820px) {
+      /* 슬라이더 네비게이션(아래 점) 나타남 */
+      /* 슬라이더 좌우 이동하는 < > 버튼 나타남 */
+      /* 더 큰 화면에서 820px 아래로 가면 */
+      /* 3->2개로 갯수 바뀜 */
+      .container{
+        padding: 60px 16px;
+      }
+      .sec .mp-container{
+        padding: 0 0 60px 0;
+      }
+      .mp-slider{
+        position: relative;
+        overflow: hidden;
+      }
+      .mp-slide{     
+        position: absolute;
+        /* width: 50%; */
+        z-index: 6;
+        transition: 1s;
+      }
+      .mp-active{
+        left: 0;     
+        right: 50%;  
+      }
+      .mp-nextactive{
+        left: 50%;
+        right: 0;
+      }
+      .mp-prevactive{
+        left: 100%;
+        right: -50%;
+      }
+      .btn-move{
+        display: block;
+        position: absolute;
+        
+        /* z-index: 7; */
+        font-size: 32px;
+        color: #aaa;
+        height: 120px;
+        line-height: 120px;
+      }
+      .btn-prev{
+        
+        position: absolute;
+        left: 5%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        z-index: 6;
+      }
+      .btn-next{
+        position: absolute;
+        left: 95%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        z-index: 6;
+      }
+      .btn-prev:hover, .btn-next:hover{
+        color: #fff;
+      }
+      
+    }
+    @media (max-width: 640px) {
+      /* 하단 네비게이션 바 나타남 */
+      /* 우측 사이드 네비게이션 바 사라짐 */
+      /* store, delevery, promo, 창업안내, app */
+      
+    }
+    @media (max-width: 520px) {
+      /* 슬라이더 820~521px 까지 두개 */
+      /* 520px 이하가 되면 한개로 바뀜. */
+    }
+    @media (max-width: 500px) {
+    }
+
+  </style>
+</head>
+<body>
+  <!-- 스킵메뉴 -->
+  <section class="skip-menu">
+    <a href="#">홈으로 바로가기</a>
+    <a href="#">소식으로 바로가기</a>
+    <a href="#">이야기로 바로가기</a>
+    <a href="#">홍보로 바로가기</a>
+    <a href="#">판매상품으로 바로가기</a>
+    <a href="#">SNS광고로 바로가기</a>
+    <a href="#">고객센터로 바로가기</a>
+  </section>
+  <!-- 본문 내용 -->
+  <section class="wrap">
+    <!-- 헤더부분 -->
+    <header class="header">
+      <div class="container">
+        <div class="inner">
+          <nav class="nav">
+            <div class="quick-btn quick-menu">
+              <i class="fas fa-bars"></i>
+            </div>
+            <ul class="l-nav">
+              <li><a href="#">PB MAGAZINE</a></li>
+              <li><a href="#">PB STORY</a></li>
+              <li><a href="#">PRODUCTS</a></li>
+              
+            </ul>
+            <div class="c-nav">
+              <h1><a href="./index.html">PARIS BAGUETTE</a></h1>
+            </div>
+            <ul class="r-nav">
+              <li class="r-sub-nav"><a href="#">STORE</a></li>
+              <li class="r-sub-nav"><a href="#">DELIVERY</a></li>
+              <li class="r-sub-nav"><a href="#">PROMOTION</a></li>
+              <div class="quick-btn btn-search">
+                <i class="fas fa-search"></i>
+              </div>
+            </ul>
+            
+          </nav>  
+        </div>
+        <div class="quick-search">
+          <input type="text" name="search" id="search" placeholder="Search">
+          <div class="btn-close-search">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="sub-nav">
+      <div class="btn-close-nav">
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="btn-menu-top">
+        <ul>
+          <li><a href="#">PB MAGAZINE</a></li>
+          <li><a href="#">PB STORY</a></li>
+          <li><a href="#">PRODUCTS</a></li>
+          <div class="prd-menu">
+            <ul>
+              <li><a href="#">전체</a></li>
+              <li><a href="#">브레드</a></li>
+              <li><a href="#">케이크</a></li>
+              <li><a href="#">샌드위치/샐러드</a></li>
+              <li><a href="#">선물</a></li>
+              <li><a href="#">디저트/스낵</a></li>
+              <li><a href="#">음료/아이스</a></li>
+              <li><a href="#">간편식</a></li>
+            </ul>
+          </div>
+        </ul>
+      </div>
+      <div class="btn-menu-middle">
+        <ul>
+          <li><a href="#">STORE</a></li>
+          <li><a href="#">DELEVERY</a></li>
+          <li><a href="#">PROMOTION</a></li>
+        </ul>
+      </div>
+      <div class="btn-menu-bottom">
+        <span>Follow Us</span>
+        <div class="btn-sns-ico">
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-instagram"></i>
+          <i class="fab fa-youtube"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- 메인슬라이더 부분 -->
+    <section class="sec main-promo">
+      <div class="container mp-container ">
+        <div class="inner">
+          <div class="sec-tit">
+            <h2>메인프로모션</h2>
+          </div>  
+          <ul class="slider mp-slider">
+            <li class="mp-slide mp-slide01">
+              <a href="#"><img src="./images/img-slide01.jpg" alt="메인-사랑합니다."></a>
+            </li>
+            <li class="mp-slide mp-slide02">
+              <a href="#"><img src="./images/img-slide02.jpg" alt="메인-디카페인"></a>
+            </li>
+            <li class="mp-slide mp-slide03">
+              <a href="#"><img src="./images/img-slide03.jpg" alt="메인-가평맛남샌드"></a>
+            </li>
+            <span class="btn-move">
+              <div class="btn-prev"><i class="fas fa-chevron-left"></i></div>
+              <div class="btn-next"><i class="fas fa-chevron-right"></i></div>
+            </span>
+          </ul>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- PB MAGAZINE 부분 -->
+    <section class="sec magazine">
+      <div class="container">
+        <div class="inner">
+          <div class="sec-top">
+            <div class="sec-tit">
+              <h2>PB MAGAZINE</h2>
+            </div>
+            <div class="sec-more">
+              <span>SHOW MORE</span>
+            </div>
+          </div>
+          <div class="mz-contents sec-bottom">
+            <a href="#"><img src="./images/img-magazine01.png" alt="무안양파"></a>
+            <a href="#"><img src="./images/img-magazine02.png" alt="파바마카롱"></a>
+            <a href="#"><img src="./images/img-magazine03.png" alt="논산딸기 비타베리"></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PB STORY 부분 -->
+    <section class="sec story">
+      <div class="container">
+        <div class="inner">
+          <div class="sec-top">
+            <div class="sec-tit">
+              <h2>PB STORY</h2>
+            </div>
+            <div class="sec-more">
+              <span>SHOW MORE</span>
+            </div>
+          </div>
+          <div class="sec-contents sec-bottom">
+            <div class="content content01">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-story01.png" alt="ESG행복상생"></a>
+              </div>
+              <div class="content-txt">
+                <h3>BREAD VIDEO</h3>
+                <h4>ESG 행복상생 프로젝트 With 논산시 청년농부</h4>
+                <p>이 남자.. 딸기에 '진심'이다..! 논산 딸기밭에서 청년농부 박태준님을 만나봄</p>
+                <span>2022-03-29</span>
+              </div>
+            </div>
+            <!-- 2~4번은 스타일 잡고 수정해야함! -->
+            <div class="content content02">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-story02.png" alt="ESG행복상생"></a>
+              </div>
+              <div class="content-txt">
+                <h3>BREAD VIDEO</h3>
+                <h4>ESG 행복상생 프로젝트 With 논산시 청년농부</h4>
+                <p>이 남자.. 딸기에 '진심'이다..! 논산 딸기밭에서 청년농부 박태준님을 만나봄</p>
+                <span>2022-03-29</span>
+              </div>
+            </div>
+            <div class="content content03">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-story03.png" alt="ESG행복상생"></a>
+              </div>
+              <div class="content-txt">
+                <h3>BREAD VIDEO</h3>
+                <h4>ESG 행복상생 프로젝트 With 논산시 청년농부</h4>
+                <p>이 남자.. 딸기에 '진심'이다..! 논산 딸기밭에서 청년농부 박태준님을 만나봄</p>
+                <span>2022-03-29</span>
+              </div>
+            </div>
+            <div class="content content04">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-story04.png" alt="ESG행복상생"></a>
+              </div>
+              <div class="content-txt">
+                <h3>BREAD VIDEO</h3>
+                <h4>ESG 행복상생 프로젝트 With 논산시 청년농부</h4>
+                <p>이 남자.. 딸기에 '진심'이다..! 논산 딸기밭에서 청년농부 박태준님을 만나봄</p>
+                <span>2022-03-29</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMOTION 부분 -->
+    <section class="sec promotion">
+      <div class="container">
+        <div class="inner">
+          <div class="sec-top">
+            <div class="sec-tit">
+              <h2>PROMOTION</h2>
+            </div>
+            <div class="sec-more">
+              <span>SHOW MORE</span>
+            </div>
+          </div>
+          <div class="sec-contents sec-bottom pro-slider">
+              <div class="slide slide01">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-promotion01.jpg" alt="파바데이"></a>
+                </div>
+                <div class="slide-txt">
+                  <p>파바 가정의달 특집 카쇼라!</p>
+                  <span>READ MORE</span>
+                </div>
+              </div>
+              <!-- 2~4번은 스타일부터 잡고 수정해야함! -->
+              <div class="slide slide02">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-promotion02.jpg" alt="파바위크"></a>
+                </div> 
+                <div class="slide-txt">
+                  <p>파바위크! 가정의 달 사전예약 시작!</p>
+                  <span>READ MORE</span>
+                </div>
+              </div>
+              <div class="slide slide03">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-promotion03.jpg" alt="디카페인"></a>
+                </div>
+                <div class="slide-txt">
+                  <p>파바위크! 가정의 달 사전예약 시작!</p>
+                  <span>READ MORE</span>
+                </div>
+              </div>
+              <div class="slide slide04">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-promotion04.jpg" alt="골든클로버"></a>
+                </div>
+                <div class="slide-txt">
+                  <p>파바위크! 가정의 달 사전예약 시작!</p>
+                  <span>READ MORE</span>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS 부분 -->
+    <section class="sec products">
+      <div class="container">
+        <div class="inner">
+          <div class="sec-top">
+            <div class="sec-tit">
+              <h2>PRODUCTS</h2>
+            </div>
+            <div class="sec-more">
+              <span>SHOW MORE</span>
+            </div>
+          </div>
+          <div class="sec-contents sec-bottom pro-slider">
+              <div class="slide slide01">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-product01.png" alt="고구마케이크"></a>
+                </div>
+                <div class="slide-txt">
+                  <p>고구마가 좋아 춘식이 고구마 케이크</p>
+                </div>
+              </div>
+              <div class="slide slide02">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-product02.jpg" alt="라이언케이크"></a>
+                </div> 
+                <div class="slide-txt">
+                  <p>생일축하해! 라이언 케이크</p>
+                </div>
+              </div>
+              <div class="slide slide03">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-product03.jpg" alt="톡톡콘치즈핫도그"></a>
+                </div>
+                <div class="slide-txt">
+                  <p>톡톡콘치즈핫도그</p>
+                </div>
+              </div>
+              <div class="slide slide04">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-product04.png" alt="스파이시미트칠리핫도그"></a>
+                </div>
+                <div class="slide-txt">
+                  <span>스파이시미트칠리핫도그</span>
+                </div>
+              </div>
+              <div class="slide slide05">
+                <div class="slide-img">
+                  <a href="#"><img src="./images/img-product05.png" alt="베리굿 롤케익"></a>
+                </div>
+                <div class="slide-txt">
+                  <span>베리굿 롤케익</span>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SNS홍보 부분 -->
+    <section class="sec sns-ad">
+      <div class="container">
+        <div class="inner">
+          <div class="sec-top">
+            <div class="sec-tit">
+              <h2>@parisbaguette_kr</h2>
+            </div>
+            <div class="sec-more">
+              <span>Instagram</span>
+            </div>
+          </div>
+          <div class="sec-contents sec-bottom">
+            <div class="content content01">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-sns_ad01.jpg" alt="춘식이1"></a>
+              </div>
+              <div class="content-txt">
+
+              </div>
+            </div>
+            <!-- 2~6번은 스타일 잡고 수정해야함! -->
+            <div class="content content02">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-sns_ad02.jpg" alt="춘식이2"></a>
+              </div>
+              <div class="content-txt">
+
+              </div>
+            </div>
+            <div class="content content03">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-sns_ad03.jpg" alt="가평잣도나쓰"></a>
+              </div>
+              <div class="content-txt">
+
+              </div>
+            </div>
+            <div class="content content04">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-sns_ad04.jpg" alt="지구의날"></a>
+              </div>
+              <div class="content-txt">
+
+              </div>
+            </div>
+            <div class="content content05">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-sns_ad05.jpg" alt="파바위크"></a>
+              </div>
+              <div class="content-txt">
+
+              </div>
+            </div>
+            <div class="content content06">
+              <div class="content-img">
+                <a href="#"><img src="./images/img-sns_ad06.jpg" alt="아다지오"></a>
+              </div>
+              <div class="content-txt">
+
+              </div>
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 각 게시판 부분 -->
+    <section class="sec board">
+      <div class="container">
+        <div class="inner">
+          <div class="sec-tit">
+            <h2>각 게시판</h2>
+          </div>
+          <div class="contents">
+            <div class="content content01">
+              <div class="content-tit">
+                <h3>고객센터</h3>
+              </div>
+              <div class="content-txt">
+                <p>고객의 소리를 적극 경청하고 고객만족 향상 활동을 지속적으로 실천합니다.</p>
+              </div>
+            </div>
+            <div class="content content02">
+              <div class="content-tit">
+                <h3>제휴카드안내</h3>
+              </div>
+              <div class="content-txt">
+                <p>해피포인트와 제휴카드 정보를 확인하세요.</p>
+              </div>
+            </div>
+            <div class="content content03">
+              <div class="content-tit">
+                <h3>공지사항</h3>
+              </div>
+              <div class="content-txt">
+                <p>파리바게뜨 공지내용을 확인하세요.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 푸터 부분 -->
+    <footer class="footer">
+      <div class="container">
+        <h2>footer</h2>
+        <div class="inner">
+          <div class="contents">
+            <div class="contents-top">
+              <div class="top-con top-con01">
+                <h3>Info</h3>
+                <ul>
+                  <li><a href="#">브랜드소개</a></li>
+                  <li><a href="#">창업안내</a></li>
+                  <li><a href="#">거래희망사전등록</a></li>
+                  <li><a href="#">윤리신고센터</a></li>
+                  <li><a href="#">채용</a></li>
+                </ul>
+              </div>
+              <div class="top-con top-con02">
+                <h3>Contact Us</h3>
+                <ul>
+                  <li><a href="#">고객센터</a></li>
+                  <li><a href="#">080-731-2027</a></li>
+                  <li>평일 09:00 - 17:00 (점심 12:00 - 13:00)</li>
+                  <li><a href="#">고객칭찬</a></li>
+                </ul>
+              </div>
+              <div class="top-con top-con03">
+                <h3>SPC</h3>
+                <ul>
+                  <li><a href="#">ccm</a></li>
+                  <li><a href="#">ncsi</a></li>
+                  <li><a href="#">kcsi</a></li>
+                  <li><a href="#">ks-sqi</a></li>
+                  <li><a href="#">nbcl</a></li>
+                </ul>
+              </div>
+              <div class="top-con top-con04">
+                <h3>Follow Us</h3>
+                <ul>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Instagram</a></li>
+                  <li><a href="#">Youtube</a></li>
+                </ul>
+                <span>Brand Site</span>
+              </div>
+            </div>
+            <div class="contents-mid">
+              <ul>
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#">개인정보처리방침</a></li>
+                <li><a href="#">이메일무단수집거부</a></li>
+                <li><a href="#">영상정보처리기기운영관리방침</a></li>
+              </ul>
+            </div>
+            <div class="contents-bot">
+              <p>All Rights Reserved © PARIS BAGUETTE, PARIS CROISSANT CO., LTD. 경기도 성남시 중원구 상대원동 사기막골로 31번길 18 (주) 파리크라상</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 전체페이지 처리 -->
+    <div class="all-page">
+      
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    // 해상도 줄어들엇을 시 
+    // 메뉴 버튼 클릭 및 검색 버튼 클릭시
+    // 활성화-비활성화 스크립트
+    let allWrap = document.querySelector('.all-page');
+    let btnQuickMenu = document.querySelector('.quick-menu');
+    let btnQuickClose = document.querySelector('.btn-close-nav');
+    let subNav = document.querySelector('.sub-nav');
+    let btnQuickSearch = document.querySelector('.btn-search')
+    let quickSearch = document.querySelector('.quick-search');
+    let btnSearchClose = document.querySelector('.btn-close-search');
+    btnQuickMenu.addEventListener('click', ()=>{
+      subNav.style.left = 0;
+      allWrap.style.opacity = 0.3;   
+      allWrap.style.zIndex = 9;   
+    });
+    btnQuickClose.addEventListener('click', ()=>{
+      subNav.style.left = `${-100}%`;
+      allWrap.style.opacity = 0;  
+      allWrap.style.zIndex = -1;
+    });
+    btnQuickSearch.addEventListener('click', ()=>{
+      quickSearch.style.top = 0;
+      allWrap.style.opacity = 0.3;
+      allWrap.style.zIndex = 9;
+    });
+    btnSearchClose.addEventListener('click', ()=>{
+      quickSearch.style.top = `${-100}%`;
+      allWrap.style.opacity = 0;
+      allWrap.style.zIndex = -1;
+    });
+
+    // 메인프로모션(슬라이더) 부모 높이 지정하는 부분
+    let slideItemImg = document.querySelector('.mp-slide01 img');
+    let sliderObject = document.querySelector('.mp-slider');
+    let btnMove = document.querySelector('.btn-move');
+    function HeightControl(){
+      sliderObject.style.height = `${slideItemImg.clientHeight}px`;
+      btnMove.style.height = `${slideItemImg.clientHeight}px`;
+      btnMove.style.width = `${document.body.clientWidth}px`;
+    }
+      HeightControl(); // 새로고침시 위치조정 방지
+      window.onresize = ()=>{ // 윈도우 크기 변경시 높이조정
+        HeightControl();
+    }
+
+    // 메인프로모션(슬라이더) 동작
+    let btnPrev = document.querySelector('.btn-prev');
+    let btnNext = document.querySelector('.btn-next');
+    let mpSlides = document.querySelector('.mp-slider');
+    let mpSlideItems = document.querySelectorAll('.mp-slider li');
+    let mpCIdx = 0;
+    let mpSlideCount = mpSlideItems.length;
+    let slideWidth = document.body.clientWidth / 2;
+
+    console.log(mpSlideCount);
+
+    mpSideClone();
+    mpInitPosition();
+
+    function mpSideClone() {
+      let cloneSlideFirst = mpSlideItems[0].cloneNode(true);
+      let cloneSlideLast = mpSlides.lastElementChild.cloneNode(true);
+      mpSlides.append(cloneSlideFirst);
+      mpSlides.insertBefore(cloneSlideLast, mpSlides.firstElementChild);
+    }
+
+    function mpInitPosition() {
+      mpSlides.style.width = `${(slideWidth) * (mpSlideCount + 2)}px`;
+      mpSlides.style.left = `${-slideWidth}px`;
+    }
+    
+    btnPrev.addEventListener('click', ()=>{
+      
+
+        
+    });
+    btnNext.addEventListener('click', ()=>{
+
+        
+
+    });
+
+
+    
+  </script>
+  
+</body>
+</html>
